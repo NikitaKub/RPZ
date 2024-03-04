@@ -82,7 +82,7 @@ class ReflectionPPPI : TestingClass
         return BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public;
     }
 
-    private static void TestingClassMethod()
+    private static void ShowReflectionTestResults()
     {
         ReflectionPPPI reflection = new ReflectionPPPI();
         reflection.name = "Banana";
@@ -106,6 +106,6 @@ class ReflectionPPPI : TestingClass
 
     public static void Main()
     {
-        TestingClassMethod();
+        ShowReflectionTestResults();
     }
 }
