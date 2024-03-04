@@ -41,8 +41,6 @@ namespace Lab_8
     class Journal
     {
         public string Name { get; private set; }
-        public string Description { get; private set; }
-        public DateTime DateOfPrint { get; private set; }
     }
 
     //<----------- Refactored ----------->

@@ -1,27 +1,33 @@
-﻿//<----------- Ex 4 ----------->
+﻿using Lab_8;
 
-//Introduce Assertion
+//<--- Ex1 --->
 
-var file = "C:/file.txt";
-var crashFile = "C:/crashDump.txt";
+RemoveControlFlag removeControlFlag = new RemoveControlFlag();
 
-VerifiCationFile(file, crashFile);
+removeControlFlag.Example();
 
-string VerifiCationFile(string file, string crashfile)
-{
-    return (file != string.Empty) ? file : crashFile; 
-}
+removeControlFlag.RefactoredExample();
 
-//<----------- Refactored ----------->
+//<--- Ex2 --->
 
-RefactoredVerifiCationFile(file, crashFile);
+ReplaceConditionalWithPolymorphism replaceConditionalWithPolymorphism = new ReplaceConditionalWithPolymorphism();
 
-string RefactoredVerifiCationFile(string file, string crashfile)
-{
-    if (file != string.Empty && crashFile != string.Empty)
-    {
-        throw new Exception("No Files");
-    }
+replaceConditionalWithPolymorphism.Example();
 
-    return (file != string.Empty) ? file : crashfile;
-}
+replaceConditionalWithPolymorphism.RefactoredExample();
+
+//<--- Ex3 --->
+
+IntroduceNullObject introduceNullObject = new IntroduceNullObject();
+
+introduceNullObject.Example();
+
+introduceNullObject.RefactoredExample();
+
+//<--- Ex4 --->
+
+IntroduceAssertion introduceAssertion = new IntroduceAssertion();
+
+introduceAssertion.Example();
+
+introduceAssertion.RefactoredExample();
