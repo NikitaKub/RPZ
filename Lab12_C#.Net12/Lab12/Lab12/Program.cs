@@ -97,11 +97,9 @@ class ReflectionPPPI : TestingClass
 
         GetInfoAboutFields(type1.GetFields(BindingFlagsForFieldsInfo()));
 
-        MethodInfo? methodInfo = type1.GetDeclaredMethod("SetId");
+        GetInfoAboutMethod(type1.GetDeclaredMethod("SetId"));
 
-        GetInfoAboutMethod(methodInfo);
-
-        InvokeMethodByReflection(reflection, methodInfo);
+        InvokeMethodByReflection(reflection, type1.GetDeclaredMethod("SetId"));
     }
 
     public static void Main()
