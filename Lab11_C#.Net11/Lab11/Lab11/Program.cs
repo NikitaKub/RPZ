@@ -1,55 +1,34 @@
-﻿//<----------- Ex 4 ----------->
+﻿using Lab11;
 
-// Replace Inheritance with Delegation
 
-class Position
-{
-    public int X { get; set; }
-    public int Y { get; set; }
+//<--- Ex1 --->
 
-    public void PositionMark()
-    {
-        Console.WriteLine("Position " + X + " " + Y);
-    }
-}
+ReplaceDelegationWithInheritance replaceDelegationWithInheritance = new ReplaceDelegationWithInheritance();
 
-class PlaceHolder : Position
-{
-    public bool IsHold(bool hold)
-    {
-        return hold == true;
-    }
-}
+replaceDelegationWithInheritance.Example();
 
-//<----------- Refactored ----------->
+replaceDelegationWithInheritance.RefactoredExample();
 
-class RefactoredPosition
-{
-    public int X { get; set; }
-    public int Y { get; set; }
+//<--- Ex2 --->
 
-    public void PositionMark()
-    {
-        Console.WriteLine("Position " + X + " " + Y);
-    }
-}
+CollapseHierarchy collapseHierarchy = new CollapseHierarchy();
 
-class RefactoredPlaceHolder
-{
-    public RefactoredPosition refactoredPosition = new RefactoredPosition();
-    
-    public int[] PositionXY {
-        get { return [refactoredPosition.X, refactoredPosition.Y]; }
-        set { refactoredPosition.X = value[0]; refactoredPosition.Y = value[1]; }
-    }
+collapseHierarchy.Example();
 
-    public void PositionMark()
-    {
-        refactoredPosition.PositionMark();
-    }
+collapseHierarchy.RefactoredExample();
 
-    public bool IsHold(bool hold)
-    {
-        return hold == true;
-    }
-}
+//<--- Ex3 --->
+
+ExtractSuperclass extractSuperclass = new ExtractSuperclass();
+
+extractSuperclass.Example();
+
+extractSuperclass.RefactoredExample();
+
+//<--- Ex4 --->
+
+ReplaceInheritanceWithDelegation replaceInheritanceWithDelegation = new ReplaceInheritanceWithDelegation();
+
+replaceInheritanceWithDelegation.Example();
+
+replaceInheritanceWithDelegation.RefactoredExample();
