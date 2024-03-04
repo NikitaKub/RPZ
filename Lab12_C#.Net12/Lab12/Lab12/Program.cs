@@ -13,6 +13,11 @@ class TestingClass
         this.id = id;
     }
 
+    public int GetId()
+    {
+        return id;
+    }
+
     public void PrintCost()
     {
         Console.WriteLine(cost);
@@ -66,6 +71,6 @@ class ReflectionPPPI : TestingClass
 
         Console.WriteLine("Invoke method with Reflection");
         methodInfo.Invoke(reflection, new object[] { 5 });
-        Console.WriteLine("Id is " + reflection.id);
+        Console.WriteLine("Id is " + reflection.GetId());
     }
 }
