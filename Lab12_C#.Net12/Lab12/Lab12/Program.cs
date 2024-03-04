@@ -31,38 +31,42 @@ class TestingClass
 
 class ReflectionPPPI : TestingClass
 {
-    private static void GetInfoAboutMethods(IEnumerable<MethodInfo> methodList)
+    
+
+    private static void ShowInfoAboutMethods(TypeInfo TypeInfo)
     {
-        foreach (MethodInfo method in methodList)
+        foreach (MethodInfo method in TypeInfo.DeclaredMethods)
         {
             Console.WriteLine("Method: " + method);
         }
     }
 
-    private static void GetInfoAboutMembers(IEnumerable<MemberInfo> memberList)
+    private static void ShowInfoAboutMembers(TypeInfo TypeInfo)
     {
         Console.WriteLine("Members");
-        foreach (MemberInfo member in memberList)
+        foreach (MemberInfo member in TypeInfo.GetMembers())
         {
             Console.WriteLine("Member: " + member);
         }
     }
 
-    private static void GetInfoAboutFields(FieldInfo[] fieldsList)
+    private static void ShowInfoAboutFields(TypeInfo TypeInfo)
     {
         Console.WriteLine("FieldInfo");
-        for (int i = 0; i < fieldsList.Length; i++)
+        FieldInfo[] fields = TypeInfo.GetFields(BindingFlagsForFieldsInfo());
+        for (int i = 0; i < fields.Length; i++)
         {
-            Console.WriteLine("Name            : {0}", fieldsList[i].Name);
-            Console.WriteLine("Declaring Type  : {0}", fieldsList[i].DeclaringType);
-            Console.WriteLine("MemberType      : {0}", fieldsList[i].MemberType);
-            Console.WriteLine("FieldType       : {0}", fieldsList[i].FieldType);
+            Console.WriteLine("Name            : {0}", fields[i].Name);
+            Console.WriteLine("Declaring Type  : {0}", fields[i].DeclaringType);
+            Console.WriteLine("MemberType      : {0}", fields[i].MemberType);
+            Console.WriteLine("FieldType       : {0}", fields[i].FieldType);
             Console.WriteLine();
         }
     }
 
-    private static void GetInfoAboutMethod(MethodInfo ?methodInfo)
+    private static void ShowInfoAboutMethod(TypeInfo TypeInfo)
     {
+        MethodInfo ?methodInfo = TypeInfo.GetDeclaredMethod("SetId");
         Console.WriteLine("Info about SetId method");
         Console.WriteLine("Return Type: " + methodInfo.ReturnType);
         Console.WriteLine("Return parameter: " + methodInfo.ReturnParameter);
@@ -70,10 +74,17 @@ class ReflectionPPPI : TestingClass
         Console.WriteLine("Is public: " + methodInfo.IsPublic + "\n");
     }
 
-    private static void InvokeMethodByReflection(ReflectionPPPI reflectionPPPI, MethodInfo ?methodInfo)
+    private static void ShowInfoAboutTypeField(ReflectionPPPI reflection)
+    {
+        reflection.name = "Banana";
+        Type type = reflection.name.GetType();
+        Console.WriteLine(type);
+    }
+
+    private static void InvokeMethodByReflection(ReflectionPPPI reflectionPPPI, TypeInfo TypeInfo)
     {
         Console.WriteLine("Invoke method with Reflection");
-        methodInfo?.Invoke(reflectionPPPI, new object[] { 5 });
+        TypeInfo.GetDeclaredMethod("SetId")?.Invoke(reflectionPPPI, new object[] { 5 });
         Console.WriteLine("Id is " + reflectionPPPI.GetId());
     }
 
@@ -85,21 +96,21 @@ class ReflectionPPPI : TestingClass
     private static void ShowReflectionTestResults()
     {
         ReflectionPPPI reflection = new ReflectionPPPI();
-        reflection.name = "Banana";
-        System.Type type = reflection.name.GetType();
-        Console.WriteLine(type);
-        TypeInfo type1 = typeof(TestingClass).GetTypeInfo();
-        Console.WriteLine(type1);
 
-        GetInfoAboutMethods(type1.DeclaredMethods);
+        ShowInfoAboutTypeField(reflection);
 
-        GetInfoAboutMembers(type1.GetMembers());
+        TypeInfo typeInfo = typeof(TestingClass).GetTypeInfo();
+        Console.WriteLine(typeInfo);
 
-        GetInfoAboutFields(type1.GetFields(BindingFlagsForFieldsInfo()));
+        ShowInfoAboutMethods(typeInfo);
 
-        GetInfoAboutMethod(type1.GetDeclaredMethod("SetId"));
+        ShowInfoAboutMembers(typeInfo);
 
-        InvokeMethodByReflection(reflection, type1.GetDeclaredMethod("SetId"));
+        ShowInfoAboutFields(typeInfo);
+
+        ShowInfoAboutMethod(typeInfo);
+
+        InvokeMethodByReflection(reflection, typeInfo);
     }
 
     public static void Main()
