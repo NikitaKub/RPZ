@@ -38,27 +38,27 @@ class ReflectionPPPI : TestingClass
         this.typeInfo = typeInfo;
     }
 
-    private static void ShowInfoAboutMethods(TypeInfo TypeInfo)
+    private static void ShowInfoAboutMethods(ReflectionPPPI reflection)
     {
-        foreach (MethodInfo method in TypeInfo.DeclaredMethods)
+        foreach (MethodInfo method in reflection.typeInfo.DeclaredMethods)
         {
             Console.WriteLine("Method: " + method);
         }
     }
 
-    private static void ShowInfoAboutMembers(TypeInfo TypeInfo)
+    private static void ShowInfoAboutMembers(ReflectionPPPI reflection)
     {
         Console.WriteLine("Members");
-        foreach (MemberInfo member in TypeInfo.GetMembers())
+        foreach (MemberInfo member in reflection.typeInfo.GetMembers())
         {
             Console.WriteLine("Member: " + member);
         }
     }
 
-    private static void ShowInfoAboutFields(TypeInfo TypeInfo)
+    private static void ShowInfoAboutFields(ReflectionPPPI reflection)
     {
         Console.WriteLine("FieldInfo");
-        FieldInfo[] fields = TypeInfo.GetFields(BindingFlagsForFieldsInfo());
+        FieldInfo[] fields = reflection.typeInfo.GetFields(BindingFlagsForFieldsInfo());
         for (int i = 0; i < fields.Length; i++)
         {
             Console.WriteLine("Name            : {0}", fields[i].Name);
@@ -69,9 +69,9 @@ class ReflectionPPPI : TestingClass
         }
     }
 
-    private static void ShowInfoAboutMethod(TypeInfo TypeInfo)
+    private static void ShowInfoAboutMethod(ReflectionPPPI reflection)
     {
-        MethodInfo ?methodInfo = TypeInfo.GetDeclaredMethod("SetId");
+        MethodInfo ?methodInfo = reflection.typeInfo.GetDeclaredMethod("SetId");
         Console.WriteLine("Info about SetId method");
         Console.WriteLine("Return Type: " + methodInfo.ReturnType);
         Console.WriteLine("Return parameter: " + methodInfo.ReturnParameter);
@@ -86,10 +86,10 @@ class ReflectionPPPI : TestingClass
         Console.WriteLine(type);
     }
 
-    private static void InvokeMethodByReflection(ReflectionPPPI reflectionPPPI, TypeInfo TypeInfo)
+    private static void InvokeMethodByReflection(ReflectionPPPI reflectionPPPI)
     {
         Console.WriteLine("Invoke method with Reflection");
-        TypeInfo.GetDeclaredMethod("SetId")?.Invoke(reflectionPPPI, new object[] { 5 });
+        reflectionPPPI.typeInfo.GetDeclaredMethod("SetId")?.Invoke(reflectionPPPI, new object[] { 5 });
         Console.WriteLine("Id is " + reflectionPPPI.GetId());
     }
 
@@ -106,15 +106,15 @@ class ReflectionPPPI : TestingClass
 
         Console.WriteLine(reflection.typeInfo);
 
-        ShowInfoAboutMethods(reflection.typeInfo);
+        ShowInfoAboutMethods(reflection);
 
-        ShowInfoAboutMembers(reflection.typeInfo);
+        ShowInfoAboutMembers(reflection);
 
-        ShowInfoAboutFields(reflection.typeInfo);
+        ShowInfoAboutFields(reflection);
 
-        ShowInfoAboutMethod(reflection.typeInfo);
+        ShowInfoAboutMethod(reflection);
 
-        InvokeMethodByReflection(reflection, reflection.typeInfo);
+        InvokeMethodByReflection(reflection);
     }
 
     public static void Main()
