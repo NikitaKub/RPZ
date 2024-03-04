@@ -31,7 +31,12 @@ class TestingClass
 
 class ReflectionPPPI : TestingClass
 {
-    
+    public TypeInfo typeInfo;
+
+    public ReflectionPPPI(TypeInfo typeInfo)
+    {
+        this.typeInfo = typeInfo;
+    }
 
     private static void ShowInfoAboutMethods(TypeInfo TypeInfo)
     {
@@ -95,22 +100,21 @@ class ReflectionPPPI : TestingClass
 
     private static void ShowReflectionTestResults()
     {
-        ReflectionPPPI reflection = new ReflectionPPPI();
+        ReflectionPPPI reflection = new ReflectionPPPI(typeof(TestingClass).GetTypeInfo());
 
         ShowInfoAboutTypeField(reflection);
 
-        TypeInfo typeInfo = typeof(TestingClass).GetTypeInfo();
-        Console.WriteLine(typeInfo);
+        Console.WriteLine(reflection.typeInfo);
 
-        ShowInfoAboutMethods(typeInfo);
+        ShowInfoAboutMethods(reflection.typeInfo);
 
-        ShowInfoAboutMembers(typeInfo);
+        ShowInfoAboutMembers(reflection.typeInfo);
 
-        ShowInfoAboutFields(typeInfo);
+        ShowInfoAboutFields(reflection.typeInfo);
 
-        ShowInfoAboutMethod(typeInfo);
+        ShowInfoAboutMethod(reflection.typeInfo);
 
-        InvokeMethodByReflection(reflection, typeInfo);
+        InvokeMethodByReflection(reflection, reflection.typeInfo);
     }
 
     public static void Main()
