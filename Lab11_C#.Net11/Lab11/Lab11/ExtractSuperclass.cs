@@ -66,7 +66,7 @@ namespace Lab11
     class RefactoredEnemy : Entity
     {
         public int HP { get; set; }
-
+        
         public void Harm()
         {
             Console.WriteLine("Harm!");
@@ -76,7 +76,7 @@ namespace Lab11
     class RefactoredFriend : Entity
     {
         public int Shields { get; set; }
-
+        
         public void Heal()
         {
             Console.WriteLine("Heal!");
