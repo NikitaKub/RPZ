@@ -31,7 +31,7 @@ class TestingClass
 
 class ReflectionPPPI : TestingClass
 {
-    public static void GetInfoAboutMethods(IEnumerable<MethodInfo> methodList)
+    private static void GetInfoAboutMethods(IEnumerable<MethodInfo> methodList)
     {
         foreach (MethodInfo method in methodList)
         {
@@ -39,7 +39,7 @@ class ReflectionPPPI : TestingClass
         }
     }
 
-    public static void GetInfoAboutMembers(IEnumerable<MemberInfo> memberList)
+    private static void GetInfoAboutMembers(IEnumerable<MemberInfo> memberList)
     {
         Console.WriteLine("Members");
         foreach (MemberInfo member in memberList)
@@ -48,7 +48,7 @@ class ReflectionPPPI : TestingClass
         }
     }
 
-    public static void GetInfoAboutFields(FieldInfo[] fieldsList)
+    private static void GetInfoAboutFields(FieldInfo[] fieldsList)
     {
         Console.WriteLine("FieldInfo");
         for (int i = 0; i < fieldsList.Length; i++)
@@ -61,7 +61,7 @@ class ReflectionPPPI : TestingClass
         }
     }
 
-    public static void GetInfoAboutMethod(MethodInfo ?methodInfo)
+    private static void GetInfoAboutMethod(MethodInfo ?methodInfo)
     {
         Console.WriteLine("Info about SetId method");
         Console.WriteLine("Return Type: " + methodInfo.ReturnType);
@@ -70,19 +70,19 @@ class ReflectionPPPI : TestingClass
         Console.WriteLine("Is public: " + methodInfo.IsPublic + "\n");
     }
 
-    public static void InvokeMethodByReflection(ReflectionPPPI reflectionPPPI, MethodInfo ?methodInfo)
+    private static void InvokeMethodByReflection(ReflectionPPPI reflectionPPPI, MethodInfo ?methodInfo)
     {
         Console.WriteLine("Invoke method with Reflection");
         methodInfo?.Invoke(reflectionPPPI, new object[] { 5 });
         Console.WriteLine("Id is " + reflectionPPPI.GetId());
     }
 
-    public static BindingFlags BindingFlagsForFieldsInfo()
+    private static BindingFlags BindingFlagsForFieldsInfo()
     {
         return BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public;
     }
 
-    public static void Main()
+    private static void TestingClassMethod()
     {
         ReflectionPPPI reflection = new ReflectionPPPI();
         reflection.name = "Banana";
@@ -90,17 +90,22 @@ class ReflectionPPPI : TestingClass
         Console.WriteLine(type);
         TypeInfo type1 = typeof(TestingClass).GetTypeInfo();
         Console.WriteLine(type1);
-        
+
         GetInfoAboutMethods(type1.DeclaredMethods);
 
         GetInfoAboutMembers(type1.GetMembers());
 
         GetInfoAboutFields(type1.GetFields(BindingFlagsForFieldsInfo()));
 
-        MethodInfo ?methodInfo = type1.GetDeclaredMethod("SetId");
+        MethodInfo? methodInfo = type1.GetDeclaredMethod("SetId");
 
         GetInfoAboutMethod(methodInfo);
 
         InvokeMethodByReflection(reflection, methodInfo);
+    }
+
+    public static void Main()
+    {
+        TestingClassMethod();
     }
 }
