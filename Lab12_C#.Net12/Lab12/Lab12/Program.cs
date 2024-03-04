@@ -1,8 +1,6 @@
 ﻿using System.Reflection;
 
-
-
-public class ReflectionPPPI
+class TestingClass
 {
     private int id;
     protected string name;
@@ -24,7 +22,10 @@ public class ReflectionPPPI
     {
         flag = Console.ReadLine() == "True";
     }
+}
 
+class ReflectionPPPI : TestingClass
+{
     public static void Main()
     {
         ReflectionPPPI reflection = new ReflectionPPPI();
