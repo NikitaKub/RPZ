@@ -77,6 +77,11 @@ class ReflectionPPPI : TestingClass
         Console.WriteLine("Id is " + reflectionPPPI.GetId());
     }
 
+    public static BindingFlags BindingFlagsForFieldsInfo()
+    {
+        return BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public;
+    }
+
     public static void Main()
     {
         ReflectionPPPI reflection = new ReflectionPPPI();
@@ -90,7 +95,7 @@ class ReflectionPPPI : TestingClass
 
         GetInfoAboutMembers(type1.GetMembers());
 
-        GetInfoAboutFields(type1.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public));
+        GetInfoAboutFields(type1.GetFields(BindingFlagsForFieldsInfo()));
 
         MethodInfo ?methodInfo = type1.GetDeclaredMethod("SetId");
 
